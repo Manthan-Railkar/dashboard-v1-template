@@ -1,15 +1,14 @@
-/** Fixed design stage (matches the reference recording). Everything is authored in these px. */
+/** Full-screen layout configuration */
 export const STAGE = { w: 1440, h: 810 } as const;
-/** Dashboard shell inside the stage */
-export const SHELL = { x: 55, y: 14, w: 1330, h: 782, r: 30 } as const;
-/** Sidebar, relative to the stage */
-export const SIDEBAR = { x: 80, y: 40, w: 57, h: 705 } as const;
-/** Centre of the sidebar logo, in stage px — the intro logo flies here and the reveal circle grows from it */
-export const LOGO = { x: 108.5, y: 77 } as const;
+/** Full-screen dashboard shell */
+export const SHELL = { x: 0, y: 0, r: 0 } as const;
+/** Sidebar positioning relative to viewport */
+export const SIDEBAR = { x: 24, y: 24, w: 57, h: 705 } as const;
+/** Centre of the sidebar logo in viewport px — the intro logo flies here and the reveal circle grows from it */
+export const LOGO = { x: 52.5, y: 61 } as const;
 
 export function computeStage() {
-  const vw = typeof window === "undefined" ? STAGE.w : window.innerWidth;
-  const vh = typeof window === "undefined" ? STAGE.h : window.innerHeight;
-  const k = Math.min(vw / STAGE.w, vh / STAGE.h);
-  return { k, x: (vw - STAGE.w * k) / 2, y: (vh - STAGE.h * k) / 2, vw, vh };
+  const vw = typeof window === "undefined" ? 1440 : window.innerWidth;
+  const vh = typeof window === "undefined" ? 810 : window.innerHeight;
+  return { k: 1, x: 0, y: 0, vw, vh };
 }

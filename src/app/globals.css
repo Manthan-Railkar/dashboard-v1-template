@@ -2,10 +2,45 @@
 @tailwind components;
 @tailwind utilities;
 
-html, body { height: 100%; margin: 0; background: #f3f3f3; overflow: hidden; }
-body { font-family: "Inter Variable", system-ui, sans-serif; color: #10302a; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+:root {
+  --color-stage: 243 243 243;
+  --color-ink: 16 48 42;
+  --color-muted: 125 141 136;
+}
+
+.dark {
+  --color-stage: 5 18 14;
+  --color-ink: 236 248 244;
+  --color-muted: 140 168 159;
+}
+
+html, body { height: 100%; margin: 0; background: rgb(var(--color-stage)); overflow: hidden; }
+body { font-family: "Inter Variable", system-ui, sans-serif; color: rgb(var(--color-ink)); -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; transition: background-color 0.3s ease, color 0.3s ease; }
 button { font: inherit; cursor: pointer; border: 0; background: none; color: inherit; }
 ::selection { background: #b4f0db; }
+
+/* Custom smooth scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(16, 48, 42, 0.18);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(16, 48, 42, 0.35);
+}
+.dark ::-webkit-scrollbar-thumb {
+  background: rgba(127, 224, 192, 0.22);
+  border-radius: 9999px;
+}
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: rgba(127, 224, 192, 0.45);
+}
 
 @layer components {
   /* intro backdrop: deep green vignette with a soft centre glow */
@@ -21,13 +56,28 @@ button { font: inherit; cursor: pointer; border: 0; background: none; color: inh
       radial-gradient(55% 60% at 40% 105%, rgba(190,224,232,.8) 0%, transparent 70%),
       radial-gradient(40% 50% at 88% 48%, rgba(244,226,208,.9) 0%, transparent 70%),
       linear-gradient(115deg, #c3e9dd 0%, #dcebe5 32%, #e6e9e3 58%, #eee4d8 100%);
+    transition: background 0.4s ease, box-shadow 0.4s ease;
+  }
+  .dark .shell-bg {
+    background:
+      radial-gradient(60% 55% at 12% 4%, rgba(20, 80, 62, 0.55) 0%, transparent 70%),
+      radial-gradient(55% 60% at 40% 105%, rgba(14, 56, 46, 0.6) 0%, transparent 70%),
+      radial-gradient(40% 50% at 88% 48%, rgba(35, 60, 52, 0.45) 0%, transparent 70%),
+      linear-gradient(115deg, #071914 0%, #0a221b 32%, #0d2821 58%, #091d17 100%);
+    box-shadow: 0 0 0 1px rgba(127, 224, 192, 0.1) inset, 0 24px 50px -12px rgba(0, 0, 0, 0.6);
   }
   .card {
     background: linear-gradient(180deg, rgba(255,255,255,.94), rgba(255,255,255,.84));
     border-radius: 20px;
     @apply shadow-card;
+    transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  .dark .card {
+    background: linear-gradient(180deg, rgba(16, 46, 38, 0.84), rgba(11, 34, 28, 0.9));
+    @apply shadow-card-dark;
   }
   .chip-dark { @apply bg-forest-2 text-white; }
+  .dark .chip-dark { @apply bg-mint text-forest font-semibold; }
   .scroll-hide { scrollbar-width: none; }
   .scroll-hide::-webkit-scrollbar { display: none; }
 }
