@@ -21,6 +21,7 @@ import { SIDEBAR } from "@/lib/layout";
 import { useIntro } from "@/lib/intro-context";
 import { useTheme } from "@/lib/theme-context";
 import { useSearch } from "@/lib/search-context";
+import { notify } from "@/components/ui/Toast";
 import Logo from "./Logo";
 
 const Dots = ({ size = 18, strokeWidth = 2 }: { size?: number; strokeWidth?: number }) => (
@@ -124,6 +125,11 @@ export default function Sidebar() {
   const go = (it: Item) => {
     if (it.id === "theme") {
       toggleTheme();
+      notify({
+        title: theme === "dark" ? "Switched to Light mode" : "Switched to Dark mode",
+        description: "Adaptive palette synchronized.",
+        type: "info",
+      });
       return;
     }
     if (it.id === "search") {
@@ -131,7 +137,11 @@ export default function Sidebar() {
       return;
     }
     if (it.id === "logout") {
-      alert("Hannah Brooks signed out. Click any sidebar navigation item to reconnect instantly.");
+      notify({
+        title: "Signed out of session",
+        description: "Click any sidebar destination to reconnect.",
+        type: "info",
+      });
       return;
     }
 

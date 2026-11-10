@@ -4,6 +4,7 @@ import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "motion/react";
 import Sidebar from "./Sidebar";
 import SearchModal from "./SearchModal";
+import { ToastContainer } from "@/components/ui/Toast";
 import { SearchProvider } from "@/lib/search-context";
 
 /** Full-screen dashboard canvas + floating sidebar + routed page area. */
@@ -29,6 +30,7 @@ export default function Shell({ children }: { children: ReactNode }) {
           </AnimatePresence>
         </main>
         <SearchModal />
+        <ToastContainer />
       </div>
     </SearchProvider>
   );

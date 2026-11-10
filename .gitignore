@@ -4,3 +4,19 @@ out
 *.tsbuildinfo
 next-env.d.ts
 .DS_Store
+
+# Local editor & agent config directories
+.agent/
+.agents/
+.claude/
+.codex/
+.cursor/
+.gemini/
+.kiro/
+.opencode/
+
+# Local developer overrides
+.impeccable/config.local.json
+.impeccable/questions/
+.impeccable/mocks/
+.impeccable/review/

@@ -7,17 +7,14 @@ import {
   Smile,
   Paperclip,
   Hash,
-  AtSign,
   Phone,
   Video,
-  Info,
-  Circle,
-  CheckCheck,
 } from "lucide-react";
 import Card from "@/components/ui/Card";
 import Split from "@/components/ui/Split";
 import Avatar from "@/components/ui/Avatar";
 import { usePageEntrance } from "@/lib/entrance";
+import { notify } from "@/components/ui/Toast";
 import { cn } from "@/lib/cn";
 
 interface Message {
@@ -150,6 +147,13 @@ export default function ChatView() {
                   {DIRECT_MESSAGES.map((u) => (
                     <div
                       key={u.name}
+                      onClick={() =>
+                        notify({
+                          title: `Chat with ${u.name}`,
+                          description: `${u.role} · ${u.online ? "Online" : "Offline"}`,
+                          type: "info",
+                        })
+                      }
                       className="flex items-center justify-between rounded-[8px] px-[8px] py-[6px] hover:bg-black/[.03] dark:hover:bg-white/[.04] transition-colors cursor-pointer"
                     >
                       <div className="flex items-center gap-[9px]">
@@ -196,14 +200,28 @@ export default function ChatView() {
 
               <div className="flex items-center gap-[8px]">
                 <button
-                  onClick={() => alert("Initiating voice call in #" + activeChannel)}
+                  onClick={() =>
+                    notify({
+                      title: `Audio huddle initiated in #${activeChannel}`,
+                      description: "Broadcasting room link to participants.",
+                      type: "info",
+                    })
+                  }
                   className="flex h-[30px] w-[30px] items-center justify-center rounded-full text-muted hover:text-ink hover:bg-black/[.04] dark:hover:bg-white/[.06] transition-colors"
+                  title="Start audio call"
                 >
                   <Phone size={14} />
                 </button>
                 <button
-                  onClick={() => alert("Initiating video huddle in #" + activeChannel)}
+                  onClick={() =>
+                    notify({
+                      title: `Video call launched in #${activeChannel}`,
+                      description: "Connecting 4 participants...",
+                      type: "success",
+                    })
+                  }
                   className="flex h-[30px] w-[30px] items-center justify-center rounded-full text-muted hover:text-ink hover:bg-black/[.04] dark:hover:bg-white/[.06] transition-colors"
+                  title="Start video huddle"
                 >
                   <Video size={14} />
                 </button>
@@ -248,7 +266,17 @@ export default function ChatView() {
             {/* Chat Input Bar */}
             <div className="border-t border-black/[.06] dark:border-white/[.08] p-[14px] shrink-0">
               <div className="flex items-center gap-[10px] rounded-[16px] bg-black/[.03] dark:bg-white/[.06] px-[14px] py-[10px] border border-black/[.06] dark:border-white/[.08]">
-                <button className="text-muted hover:text-ink transition-colors">
+                <button
+                  onClick={() =>
+                    notify({
+                      title: "Attachment selector",
+                      description: "Attach DICOM zip, video recording, or PDF.",
+                      type: "info",
+                    })
+                  }
+                  className="text-muted hover:text-ink transition-colors"
+                  title="Attach file"
+                >
                   <Paperclip size={16} />
                 </button>
                 <input
@@ -260,13 +288,24 @@ export default function ChatView() {
                   placeholder={`Message #${activeChannel}... (press Enter to send)`}
                   className="flex-1 bg-transparent text-[12px] text-ink outline-none placeholder:text-muted"
                 />
-                <button className="text-muted hover:text-ink transition-colors">
+                <button
+                  onClick={() =>
+                    notify({
+                      title: "Reaction palette",
+                      description: "Emoji reactions ready.",
+                      type: "info",
+                    })
+                  }
+                  className="text-muted hover:text-ink transition-colors"
+                  title="Add emoji"
+                >
                   <Smile size={16} />
                 </button>
                 <motion.button
                   whileTap={{ scale: 0.92 }}
                   onClick={handleSend}
                   className="flex h-[28px] w-[28px] items-center justify-center rounded-full bg-forest-2 dark:bg-mint text-white dark:text-forest transition-colors shadow-sm"
+                  title="Send message"
                 >
                   <Send size={12} className="translate-x-[1px]" />
                 </motion.button>
@@ -278,4 +317,3 @@ export default function ChatView() {
     </div>
   );
 }
-

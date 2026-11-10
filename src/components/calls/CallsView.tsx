@@ -9,17 +9,16 @@ import {
   VideoOff,
   Share2,
   PhoneOff,
-  Users,
   Calendar,
   Clock,
   Plus,
   Radio,
-  Sparkles,
 } from "lucide-react";
 import Card from "@/components/ui/Card";
 import Split from "@/components/ui/Split";
 import Avatar from "@/components/ui/Avatar";
 import { usePageEntrance } from "@/lib/entrance";
+import { notify } from "@/components/ui/Toast";
 import { cn } from "@/lib/cn";
 
 const PARTICIPANTS = [
@@ -65,6 +64,48 @@ export default function CallsView() {
   const [videoActive, setVideoActive] = useState(true);
   const [screenSharing, setScreenSharing] = useState(false);
 
+  const toggleMic = () => {
+    setMicActive(!micActive);
+    notify({
+      title: micActive ? "Microphone muted" : "Microphone unmuted",
+      type: "info",
+    });
+  };
+
+  const toggleVideo = () => {
+    setVideoActive(!videoActive);
+    notify({
+      title: videoActive ? "Camera turned off" : "Camera turned on",
+      type: "info",
+    });
+  };
+
+  const toggleScreen = () => {
+    setScreenSharing(!screenSharing);
+    notify({
+      title: screenSharing ? "Screen sharing stopped" : "Broadcasting screen stream",
+      type: screenSharing ? "info" : "success",
+    });
+  };
+
+  const leaveCall = () => {
+    setInCall(false);
+    notify({
+      title: "Left #design-systems huddle",
+      description: "Call audio disconnected.",
+      type: "info",
+    });
+  };
+
+  const joinCall = () => {
+    setInCall(true);
+    notify({
+      title: "Joined #design-systems huddle",
+      description: "HD audio connected.",
+      type: "success",
+    });
+  };
+
   return (
     <div ref={ref} data-page className="absolute inset-0 overflow-y-auto overflow-x-hidden">
       <div className="relative flex flex-col w-full min-h-full" style={{ padding: "24px 32px 32px 110px" }}>
@@ -82,7 +123,13 @@ export default function CallsView() {
           <div data-fill className="flex items-center gap-[10px]">
             <motion.button
               whileTap={{ scale: 0.95 }}
-              onClick={() => alert("Scheduled meeting creation dialog opened.")}
+              onClick={() =>
+                notify({
+                  title: "Meeting Scheduler",
+                  description: "Calendar invite sent for review.",
+                  type: "info",
+                })
+              }
               className="flex h-[32px] items-center gap-[6px] rounded-full bg-white/70 dark:bg-white/[.08] px-[14px] text-[11px] font-medium text-ink shadow-[inset_0_0_0_1px_rgba(255,255,255,.7)] dark:shadow-[inset_0_0_0_1px_rgba(255,255,255,.1)]"
             >
               <Calendar size={13} />
@@ -90,7 +137,7 @@ export default function CallsView() {
             </motion.button>
             <motion.button
               whileTap={{ scale: 0.95 }}
-              onClick={() => setInCall(true)}
+              onClick={joinCall}
               className="flex h-[32px] items-center gap-[6px] rounded-full bg-forest-2 dark:bg-mint px-[14px] text-[11px] font-medium text-white dark:text-forest shadow-sm"
             >
               <Plus size={13} />
@@ -174,7 +221,7 @@ export default function CallsView() {
               {/* In-Call Controls Bar */}
               <div className="mt-[24px] flex items-center justify-center gap-[12px]">
                 <button
-                  onClick={() => setMicActive(!micActive)}
+                  onClick={toggleMic}
                   className={cn(
                     "flex h-[40px] w-[40px] items-center justify-center rounded-full transition-colors",
                     micActive
@@ -187,7 +234,7 @@ export default function CallsView() {
                 </button>
 
                 <button
-                  onClick={() => setVideoActive(!videoActive)}
+                  onClick={toggleVideo}
                   className={cn(
                     "flex h-[40px] w-[40px] items-center justify-center rounded-full transition-colors",
                     videoActive
@@ -200,7 +247,7 @@ export default function CallsView() {
                 </button>
 
                 <button
-                  onClick={() => setScreenSharing(!screenSharing)}
+                  onClick={toggleScreen}
                   className={cn(
                     "flex h-[40px] w-[40px] items-center justify-center rounded-full transition-colors",
                     screenSharing
@@ -213,7 +260,7 @@ export default function CallsView() {
                 </button>
 
                 <button
-                  onClick={() => setInCall(false)}
+                  onClick={leaveCall}
                   className="flex h-[40px] px-[18px] items-center gap-[6px] rounded-full bg-red-600 text-white hover:bg-red-700 transition-colors font-medium text-[11px] shadow-sm"
                   title="Leave Huddle"
                 >
@@ -234,7 +281,7 @@ export default function CallsView() {
                 You are currently offline. Join an existing team room or launch an instant huddle.
               </p>
               <button
-                onClick={() => setInCall(true)}
+                onClick={joinCall}
                 className="mt-[16px] rounded-full bg-forest-2 dark:bg-mint text-white dark:text-forest px-[20px] py-[9px] text-[11.5px] font-medium shadow-sm hover:brightness-105 transition-all"
               >
                 Join #design-systems Huddle
@@ -272,7 +319,13 @@ export default function CallsView() {
 
                   <motion.button
                     whileTap={{ scale: 0.95 }}
-                    onClick={() => alert(`Starting call: ${call.title}`)}
+                    onClick={() => {
+                      setInCall(true);
+                      notify({
+                        title: `Connecting to ${call.title}`,
+                        type: "success",
+                      });
+                    }}
                     className="flex h-[26px] items-center gap-[4px] rounded-full bg-mint-2 dark:bg-mint-3/20 text-forest-2 dark:text-mint px-[10px] text-[10px] font-medium hover:bg-mint-3/40 transition-colors"
                   >
                     <Video size={11} />
@@ -287,4 +340,3 @@ export default function CallsView() {
     </div>
   );
 }
-

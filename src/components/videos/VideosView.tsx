@@ -7,19 +7,17 @@ import {
   Clock,
   Eye,
   MessageSquare,
-  Sparkles,
   Search,
-  Filter,
-  CheckCircle,
   TrendingUp,
-  Share2,
   X,
+  Upload,
 } from "lucide-react";
 import Card from "@/components/ui/Card";
 import Split from "@/components/ui/Split";
 import Thumb, { type ThumbTone } from "@/components/ui/Thumb";
 import Avatar from "@/components/ui/Avatar";
 import { usePageEntrance } from "@/lib/entrance";
+import { notify } from "@/components/ui/Toast";
 import { cn } from "@/lib/cn";
 
 interface VideoItem {
@@ -142,7 +140,7 @@ export default function VideosView() {
           <div data-fill className="flex items-center gap-[10px]">
             {/* Search */}
             <div className="relative flex items-center">
-              <Search size={13} className="absolute left-[12px] text-muted" />
+              <Search size={13} className="absolute left-[12px] text-muted pointer-events-none" />
               <input
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
@@ -153,10 +151,16 @@ export default function VideosView() {
 
             <motion.button
               whileTap={{ scale: 0.95 }}
-              onClick={() => alert("Upload dialog opened: select video asset to encode.")}
+              onClick={() =>
+                notify({
+                  title: "Video upload queue opened",
+                  description: "Drag and drop 4K MP4 or DICOM video files to encode.",
+                  type: "info",
+                })
+              }
               className="flex h-[32px] items-center gap-[6px] rounded-full bg-forest-2 dark:bg-mint px-[14px] text-[11px] font-medium text-white dark:text-forest shadow-sm"
             >
-              <Video size={13} />
+              <Upload size={13} />
               <span>Upload Video</span>
             </motion.button>
           </div>
@@ -339,4 +343,3 @@ export default function VideosView() {
     </div>
   );
 }
-

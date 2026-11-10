@@ -1,0 +1,179 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-10T18:50:30.000Z",
+  "title": "Design System: Workspace Studio",
+  "extensions": {
+    "colorMeta": {
+      "mint-primary": {
+        "role": "primary",
+        "displayName": "Mint Luminescence",
+        "canonical": "#7fe0c0",
+        "tonalRamp": ["#0b382c", "#125442", "#1a7059", "#2fae8a", "#55cca8", "#7fe0c0", "#b4f0db", "#e2f9f1"]
+      },
+      "forest-surface": {
+        "role": "neutral",
+        "displayName": "Pine Forest",
+        "canonical": "#0b2b23",
+        "tonalRamp": ["#04120e", "#071c17", "#0b2b23", "#123b31", "#1a4d40", "#266656", "#428271", "#78ab9d"]
+      },
+      "peach-accent": {
+        "role": "secondary",
+        "displayName": "Peach Radiance",
+        "canonical": "#f3a877",
+        "tonalRamp": ["#5a2b0e", "#8a3e15", "#bc5721", "#dc763a", "#f3a877", "#f9cdb0", "#fde6d6", "#fff4ed"]
+      },
+      "paper-stage": {
+        "role": "neutral",
+        "displayName": "Parchment Stage",
+        "canonical": "#f3f3f3",
+        "tonalRamp": ["#1a1a1a", "#3b3b3b", "#6e6e6e", "#9e9e9e", "#cccccc", "#e6e6e6", "#f3f3f3", "#ffffff"]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display Grotesk",
+        "purpose": "Hero headlines, major section greetings, and animated typographic banners."
+      },
+      "serif-accent": {
+        "displayName": "Instrument Serif Italic",
+        "purpose": "Humanistic calligraphic emphasis within major titles."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Card headers, metric rolls, and column titles."
+      },
+      "body": {
+        "displayName": "Body Sans",
+        "purpose": "Explanatory copy, chat thread messages, and profile summaries."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Navigation tooltips, status badges, timestamps, and filter pills."
+      }
+    },
+    "shadows": [
+      {
+        "name": "card-light",
+        "value": "0 1px 0 rgba(255,255,255,.95) inset, 0 0 0 1px rgba(255,255,255,.55), 0 14px 34px -16px rgba(18,70,56,.28)",
+        "purpose": "Standard frosted glass card rest state in light mode."
+      },
+      {
+        "name": "card-dark",
+        "value": "0 1px 0 rgba(255,255,255,.08) inset, 0 0 0 1px rgba(127,224,192,.12), 0 14px 34px -16px rgba(0,0,0,.7)",
+        "purpose": "Standard obsidian glass card rest state in dark mode."
+      },
+      {
+        "name": "indicator-glow",
+        "value": "0 0 22px rgba(127,224,192,.55), inset 0 1px 0 rgba(255,255,255,.7)",
+        "purpose": "Luminescent radial glow behind active navigation orb."
+      }
+    ],
+    "motion": [
+      {
+        "name": "spring-fluid",
+        "value": "type: spring, stiffness: 440, damping: 32, mass: 0.72",
+        "purpose": "Kinetic navigation indicator and tactile button interaction."
+      },
+      {
+        "name": "ease-stagger",
+        "value": "cubic-bezier(0.22, 1, 0.36, 1)",
+        "purpose": "Non-blocking page transition and card entrance sequences."
+      }
+    ],
+    "breakpoints": [
+      { "name": "sm", "value": "640px" },
+      { "name": "md", "value": "768px" },
+      { "name": "lg", "value": "1024px" },
+      { "name": "xl", "value": "1280px" },
+      { "name": "2xl", "value": "1536px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "High-visibility primary action button with mint luminescence.",
+      "html": "<button class=\"ds-btn-primary\">Upload Video</button>",
+      "css": ".ds-btn-primary { background: #7fe0c0; color: #0b2b23; font-family: 'Inter Variable', system-ui, sans-serif; font-size: 11px; font-weight: 500; padding: 8px 18px; border-radius: 9999px; border: none; cursor: pointer; transition: transform 0.15s ease, filter 0.15s ease; box-shadow: 0 2px 8px rgba(127, 224, 192, 0.3); } .ds-btn-primary:hover { filter: brightness(1.06); transform: translateY(-1px); } .ds-btn-primary:active { transform: scale(0.96); }"
+    },
+    {
+      "name": "Peach Action Button",
+      "kind": "button",
+      "refersTo": "button-forest",
+      "description": "Collaborative action button with warm peach accent.",
+      "html": "<button class=\"ds-btn-peach\"><svg width=\"12\" height=\"12\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" style=\"vertical-align: -1px; margin-right: 6px;\"><circle cx=\"12\" cy=\"12\" r=\"10\"/><line x1=\"12\" y1=\"8\" x2=\"12\" y2=\"16\"/><line x1=\"8\" y1=\"12\" x2=\"16\" y2=\"12\"/></svg>Add member</button>",
+      "css": ".ds-btn-peach { background: #f3a877; color: #0b2b23; font-family: 'Inter Variable', system-ui, sans-serif; font-size: 11px; font-weight: 500; padding: 8px 18px; border-radius: 9999px; border: none; cursor: pointer; transition: transform 0.15s ease; box-shadow: 0 8px 18px -8px rgba(243, 168, 119, 0.8); } .ds-btn-peach:hover { filter: brightness(1.05); transform: translateY(-1px); } .ds-btn-peach:active { transform: scale(0.96); }"
+    },
+    {
+      "name": "Glass Surface Card",
+      "kind": "card",
+      "refersTo": "card-container",
+      "description": "Signature 20px squircle container with frosted depth and inner rim highlight.",
+      "html": "<div class=\"ds-card\"><h4 class=\"ds-card-title\">Workspace Telemetry</h4><p class=\"ds-card-desc\">Real-time operational overview</p></div>",
+      "css": ".ds-card { background: linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(255, 255, 255, 0.84)); border-radius: 20px; padding: 20px; box-shadow: 0 1px 0 rgba(255,255,255,.95) inset, 0 0 0 1px rgba(255,255,255,.55), 0 14px 34px -16px rgba(18,70,56,.28); font-family: 'Inter Variable', system-ui, sans-serif; } .ds-card-title { font-size: 14px; font-weight: 500; color: #10302a; margin: 0 0 4px 0; } .ds-card-desc { font-size: 11px; color: #7d8d88; margin: 0; }"
+    },
+    {
+      "name": "Filter Chip",
+      "kind": "chip",
+      "refersTo": "chip-filter",
+      "description": "Rounded selection pill with smooth layoutId sliding background.",
+      "html": "<span class=\"ds-chip-active\">All (248)</span>",
+      "css": ".ds-chip-active { background: #143b31; color: #ffffff; font-family: 'Inter Variable', system-ui, sans-serif; font-size: 10px; font-weight: 500; padding: 5px 14px; border-radius: 9999px; display: inline-flex; align-items: center; cursor: pointer; }"
+    },
+    {
+      "name": "Search Palette Input",
+      "kind": "input",
+      "refersTo": "card-container",
+      "description": "Frameless spotlight search field with shortcut pill badge.",
+      "html": "<div class=\"ds-search-bar\"><svg width=\"15\" height=\"15\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#7d8d88\" stroke-width=\"2\" style=\"margin-right: 10px;\"><circle cx=\"11\" cy=\"11\" r=\"8\"/><line x1=\"21\" y1=\"21\" x2=\"16.65\" y2=\"16.65\"/></svg><input class=\"ds-input\" placeholder=\"Search workspace...\" /><span class=\"ds-badge\">ESC</span></div>",
+      "css": ".ds-search-bar { display: flex; align-items: center; padding: 12px 18px; border-bottom: 1px solid rgba(0,0,0,0.08); font-family: 'Inter Variable', system-ui, sans-serif; } .ds-input { flex: 1; border: none; background: transparent; font-size: 13px; color: #10302a; outline: none; } .ds-badge { background: rgba(0,0,0,0.06); padding: 3px 6px; border-radius: 6px; font-size: 10px; color: #7d8d88; font-weight: 500; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Obsidian Studio",
+    "overview": "Workspace Studio marries the deep optical quiet of an obsidian forest with the laser-etched clarity of surgical and clinical instrumentation. High-density data feeds, video waveforms, and real-time collaboration tools sit upon a tranquil, tinted glass plane that shifts seamlessly from luminous morning parchment to abyssal emerald night.\n\nThe design eliminates visual noise and brutalist aggression in favor of gentle biological radiuses, organic pill contours, and spring-grounded motion physics. Every state change feels physically anchored, responding synchronously to user intent with zero perceptible hesitation.",
+    "keyCharacteristics": [
+      "Atmospheric Palette: Deep pine greens and cool parchment grounded by luminescent mint indicators and warm peach highlights.",
+      "Fluid & Tactile Geometry: Generous 20px squircle containers and fully-radiused pill controls that invite tactile manipulation.",
+      "Synchronized Kinetic Physics: Motion communicates state and direction via unified spring dynamics (stiffness: 440, damping: 32), completely eliminating static jump cuts.",
+      "Dual-Mode Luminosity: Seamless transition between light parchment glass and dark obsidian depth with guaranteed contrast parity."
+    ],
+    "rules": [
+      {
+        "name": "The Rarity of Mint Rule",
+        "body": "Mint luminescence (#7fe0c0) must never exceed 10% of any viewport's surface area. Its purpose is navigational telemetry and urgent orientation; overuse dilutes its signal value.",
+        "section": "colors"
+      },
+      {
+        "name": "The Dual-Surface Parity Rule",
+        "body": "Every interactive component must declare both light and dark styling explicitly; neither mode may rely on unverified opacity inheritances.",
+        "section": "colors"
+      },
+      {
+        "name": "The Typographic Blur Rule",
+        "body": "All major headlines entering the screen must utilize character-level stagger with blur resolution (0.45em slide + filter: blur(4px) -> blur(0px)).",
+        "section": "typography"
+      },
+      {
+        "name": "The Inner Rim Rule",
+        "body": "Every glass card must feature a 1px inner rim (inset 0 1px 0 rgba(...)) representing light catching the polished top edge of the panel.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do use rounded-full for all action buttons, status pills, and toggle indicators.",
+      "Do apply rounded-[20px] to all surface cards and modal overlays.",
+      "Do prefetch all navigation routes on hover and mount to maintain instant client-side switching.",
+      "Do use stiffness: 440, damping: 32 for all interactive spring transitions.",
+      "Do maintain strict color contrast ratios across both Light and Dark themes."
+    ],
+    "donts": [
+      "Don't use sharp square corners (rounded-none or rounded-sm) for interactive controls or cards.",
+      "Don't use harsh saturated pure black (#000000) or pure white (#ffffff) backgrounds in dark mode; use deep obsidian greens (#071914, #102e26).",
+      "Don't introduce artificial delays or blocking timeouts on navigation indicators.",
+      "Don't use generic default blue accents (#0070f3); honor the committed mint (#7fe0c0) and peach (#f3a877) identity."
+    ]
+  }
+}
+

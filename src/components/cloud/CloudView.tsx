@@ -21,6 +21,7 @@ import Card from "@/components/ui/Card";
 import Split from "@/components/ui/Split";
 import Avatar from "@/components/ui/Avatar";
 import { usePageEntrance } from "@/lib/entrance";
+import { notify } from "@/components/ui/Toast";
 
 interface FileItem {
   id: string;
@@ -120,7 +121,13 @@ export default function CloudView() {
           <div data-fill className="flex items-center gap-[10px]">
             <motion.button
               whileTap={{ scale: 0.95 }}
-              onClick={() => alert("New folder created in workspace.")}
+              onClick={() =>
+                notify({
+                  title: "New folder created",
+                  description: "Added to Clinical Footage directory.",
+                  type: "success",
+                })
+              }
               className="flex h-[32px] items-center gap-[6px] rounded-full bg-white/70 dark:bg-white/[.08] px-[14px] text-[11px] font-medium text-ink shadow-[inset_0_0_0_1px_rgba(255,255,255,.7)] dark:shadow-[inset_0_0_0_1px_rgba(255,255,255,.1)]"
             >
               <FolderPlus size={13} />
@@ -128,7 +135,13 @@ export default function CloudView() {
             </motion.button>
             <motion.button
               whileTap={{ scale: 0.95 }}
-              onClick={() => alert("Upload dialog opened: select file to upload.")}
+              onClick={() =>
+                notify({
+                  title: "File upload initiated",
+                  description: "Select files to sync with Cloud Drive.",
+                  type: "info",
+                })
+              }
               className="flex h-[32px] items-center gap-[6px] rounded-full bg-forest-2 dark:bg-mint px-[14px] text-[11px] font-medium text-white dark:text-forest shadow-sm"
             >
               <UploadCloud size={13} />
@@ -177,6 +190,13 @@ export default function CloudView() {
             {FOLDERS.map((f) => (
               <Card
                 key={f.name}
+                onClick={() =>
+                  notify({
+                    title: `Opened ${f.name}`,
+                    description: `${f.items} files indexed.`,
+                    type: "info",
+                  })
+                }
                 className="group p-[16px] cursor-pointer hover:border-mint-3/50 transition-all duration-200"
               >
                 <div className="flex items-start justify-between">
@@ -201,7 +221,7 @@ export default function CloudView() {
           <div className="flex items-center justify-between mb-[12px]">
             <h2 className="text-[13px] font-medium text-ink">Recent Files</h2>
             <div className="relative">
-              <Search size={12} className="absolute left-[10px] top-[9px] text-muted" />
+              <Search size={12} className="absolute left-[10px] top-[9px] text-muted pointer-events-none" />
               <input
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
@@ -236,14 +256,28 @@ export default function CloudView() {
                     </div>
                     <div className="flex items-center gap-[6px]">
                       <button
-                        onClick={() => alert(`Downloading ${file.name}`)}
+                        onClick={() =>
+                          notify({
+                            title: `Downloading ${file.name}`,
+                            description: `${file.size} transferring.`,
+                            type: "success",
+                          })
+                        }
                         className="flex h-[28px] w-[28px] items-center justify-center rounded-full text-muted hover:text-ink hover:bg-black/[.05] dark:hover:bg-white/[.08] transition-colors"
+                        title="Download"
                       >
                         <Download size={13} />
                       </button>
                       <button
-                        onClick={() => alert(`Shared link copied for ${file.name}`)}
+                        onClick={() =>
+                          notify({
+                            title: "Share link generated",
+                            description: `Copied URL for ${file.name} to clipboard.`,
+                            type: "info",
+                          })
+                        }
                         className="flex h-[28px] w-[28px] items-center justify-center rounded-full text-muted hover:text-ink hover:bg-black/[.05] dark:hover:bg-white/[.08] transition-colors"
+                        title="Share"
                       >
                         <Share2 size={13} />
                       </button>
@@ -258,4 +292,3 @@ export default function CloudView() {
     </div>
   );
 }
-

@@ -10,15 +10,14 @@ import {
   ShieldCheck,
   Check,
   Globe,
-  Sliders,
   Laptop,
-  CheckCircle2,
 } from "lucide-react";
 import Card from "@/components/ui/Card";
 import Split from "@/components/ui/Split";
 import Avatar from "@/components/ui/Avatar";
 import { usePageEntrance } from "@/lib/entrance";
 import { useTheme } from "@/lib/theme-context";
+import { notify } from "@/components/ui/Toast";
 import { cn } from "@/lib/cn";
 
 export default function SettingsView() {
@@ -26,15 +25,16 @@ export default function SettingsView() {
   usePageEntrance(ref);
   const { theme, toggleTheme } = useTheme();
 
-  const [savedToast, setSavedToast] = useState(false);
   const [emailAlerts, setEmailAlerts] = useState(true);
   const [desktopPush, setDesktopPush] = useState(true);
   const [soundEffects, setSoundEffects] = useState(false);
-  const [autoSave, setAutoSave] = useState(true);
 
   const handleSave = () => {
-    setSavedToast(true);
-    setTimeout(() => setSavedToast(false), 2400);
+    notify({
+      title: "Settings synchronized",
+      description: "Preferences saved to workspace profile.",
+      type: "success",
+    });
   };
 
   return (
@@ -52,17 +52,6 @@ export default function SettingsView() {
           </div>
 
           <div data-fill className="flex items-center gap-[10px]">
-            {savedToast && (
-              <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0 }}
-                className="flex items-center gap-[6px] rounded-full bg-emerald-500/15 border border-emerald-500/30 px-[12px] py-[6px] text-[11px] font-medium text-emerald-600 dark:text-emerald-400"
-              >
-                <CheckCircle2 size={13} />
-                <span>Changes saved!</span>
-              </motion.div>
-            )}
             <motion.button
               whileTap={{ scale: 0.95 }}
               onClick={handleSave}
@@ -93,7 +82,10 @@ export default function SettingsView() {
                 {/* Light Mode Option */}
                 <button
                   onClick={() => {
-                    if (theme === "dark") toggleTheme();
+                    if (theme === "dark") {
+                      toggleTheme();
+                      notify({ title: "Light mode enabled", type: "info" });
+                    }
                   }}
                   className={cn(
                     "flex flex-col items-center gap-[10px] rounded-[14px] p-[16px] border text-center transition-all",
@@ -115,7 +107,10 @@ export default function SettingsView() {
                 {/* Dark Mode Option */}
                 <button
                   onClick={() => {
-                    if (theme === "light") toggleTheme();
+                    if (theme === "light") {
+                      toggleTheme();
+                      notify({ title: "Dark mode enabled", type: "info" });
+                    }
                   }}
                   className={cn(
                     "flex flex-col items-center gap-[10px] rounded-[14px] p-[16px] border text-center transition-all",
@@ -199,7 +194,10 @@ export default function SettingsView() {
                   <p className="text-[10px] text-muted">Receive live notifications for call invites and mentions</p>
                 </div>
                 <button
-                  onClick={() => setDesktopPush(!desktopPush)}
+                  onClick={() => {
+                    setDesktopPush(!desktopPush);
+                    notify({ title: desktopPush ? "Push alerts disabled" : "Push alerts enabled", type: "info" });
+                  }}
                   className={cn(
                     "relative h-[22px] w-[40px] rounded-full transition-colors",
                     desktopPush ? "bg-forest-2 dark:bg-mint" : "bg-black/[.15] dark:bg-white/[.2]"
@@ -218,7 +216,10 @@ export default function SettingsView() {
                   <p className="text-[10px] text-muted">Summary of video reviews and team activity at 9:00 AM</p>
                 </div>
                 <button
-                  onClick={() => setEmailAlerts(!emailAlerts)}
+                  onClick={() => {
+                    setEmailAlerts(!emailAlerts);
+                    notify({ title: emailAlerts ? "Email digest disabled" : "Email digest enabled", type: "info" });
+                  }}
                   className={cn(
                     "relative h-[22px] w-[40px] rounded-full transition-colors",
                     emailAlerts ? "bg-forest-2 dark:bg-mint" : "bg-black/[.15] dark:bg-white/[.2]"
@@ -237,7 +238,10 @@ export default function SettingsView() {
                   <p className="text-[10px] text-muted">Subtle sound chimes on message receipts and huddle joins</p>
                 </div>
                 <button
-                  onClick={() => setSoundEffects(!soundEffects)}
+                  onClick={() => {
+                    setSoundEffects(!soundEffects);
+                    notify({ title: soundEffects ? "Audio cues muted" : "Audio cues active", type: "info" });
+                  }}
                   className={cn(
                     "relative h-[22px] w-[40px] rounded-full transition-colors",
                     soundEffects ? "bg-forest-2 dark:bg-mint" : "bg-black/[.15] dark:bg-white/[.2]"
@@ -287,7 +291,18 @@ export default function SettingsView() {
                       <p className="text-[9.5px] text-muted">Last active 3 hours ago</p>
                     </div>
                   </div>
-                  <button className="text-[10px] text-muted hover:text-ink">Revoke</button>
+                  <button
+                    onClick={() =>
+                      notify({
+                        title: "Device session revoked",
+                        description: "Clinical iPad Pro logged out.",
+                        type: "info",
+                      })
+                    }
+                    className="text-[10px] text-muted hover:text-ink cursor-pointer"
+                  >
+                    Revoke
+                  </button>
                 </div>
               </div>
             </div>
@@ -304,4 +319,3 @@ export default function SettingsView() {
     </div>
   );
 }
-
