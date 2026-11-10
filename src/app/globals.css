@@ -1,0 +1,37 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body { height: 100%; margin: 0; background: #f3f3f3; overflow: hidden; }
+body { font-family: "Inter Variable", system-ui, sans-serif; color: #10302a; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+button { font: inherit; cursor: pointer; border: 0; background: none; color: inherit; }
+::selection { background: #b4f0db; }
+
+@layer components {
+  /* intro backdrop: deep green vignette with a soft centre glow */
+  .intro-bg {
+    background:
+      radial-gradient(46% 62% at 50% 50%, rgba(18,84,64,.55) 0%, rgba(10,52,40,.35) 45%, transparent 100%),
+      radial-gradient(70% 90% at 50% 50%, #0a2f25 0%, #062219 55%, #03150f 100%);
+  }
+  /* the rounded dashboard canvas */
+  .shell-bg {
+    background:
+      radial-gradient(60% 55% at 12% 4%, rgba(160,226,206,.95) 0%, transparent 70%),
+      radial-gradient(55% 60% at 40% 105%, rgba(190,224,232,.8) 0%, transparent 70%),
+      radial-gradient(40% 50% at 88% 48%, rgba(244,226,208,.9) 0%, transparent 70%),
+      linear-gradient(115deg, #c3e9dd 0%, #dcebe5 32%, #e6e9e3 58%, #eee4d8 100%);
+  }
+  .card {
+    background: linear-gradient(180deg, rgba(255,255,255,.94), rgba(255,255,255,.84));
+    border-radius: 20px;
+    @apply shadow-card;
+  }
+  .chip-dark { @apply bg-forest-2 text-white; }
+  .scroll-hide { scrollbar-width: none; }
+  .scroll-hide::-webkit-scrollbar { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+}
